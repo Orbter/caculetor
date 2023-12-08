@@ -57,11 +57,12 @@ body {
   flex-grow: 1;
 }
 .numbers-screen {
+  flex-direction: column;
   min-width: 315px;
   flex-grow: 1;
   min-height: 100px;
-  justify-content: end;
-  align-items: center;
+  align-items: end;
+  justify-content: center;
   word-wrap: break-word;
   word-break: break-all;
   font-size: 2rem;
@@ -96,4 +97,8 @@ body {
   padding: 5px;
   padding-top: 0;
   flex-direction: column;
+}
+.deleat {
+  padding-top: 15px;
+  cursor: pointer;
 }

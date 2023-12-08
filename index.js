@@ -1,15 +1,10 @@
 const caculetorButtons = document.querySelectorAll(".button");
 const specialButtons = document.querySelectorAll(".special-dark");
-const one = document.getElementById("one");
-const two = document.getElementById("two");
-const three = document.getElementById("three");
-const four = document.getElementById("four");
-const five = document.getElementById("five");
-const six = document.getElementById("six");
-const seven = document.getElementById("seven");
-const eight = document.getElementById("eight");
-const nine = document.getElementById("nine");
-const zero = document.getElementById("zero");
+const numberButtons = document.querySelectorAll("[data-number]");
+const operitoreButtons = document.querySelectorAll("[data-operetore]");
+const equalButton = document.querySelector("[data-equls]");
+const deleatAll = document.querySelector("[data-deletAll]");
+const deleat = document.querySelector("[data-delet]");
 
 function buttonAnimation(button) {
   // Store the initial background color
