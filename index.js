@@ -7,16 +7,53 @@ class Calculatore {
   clear() {
     this.screen.textContent = "";
   }
+  deleat() {
+    const trimmedContent = this.screen.textContent.trim();
+    const allnumbers = trimmedContent.length;
+    this.screen.textContent = trimmedContent.slice(0, allnumbers - 1);
+  }
 
   appendNumber(number) {
     this.screen.textContent += number;
   }
 
   choseOperetor(operator) {
+    if (this.screen.textContent === "") return;
+    const lastnumber = this.screen.textContent.trim().slice(-1);
+    console.log(`Last character: ${lastnumber}`);
+    if (
+      lastnumber === "+" ||
+      lastnumber === "-" ||
+      lastnumber === "x" ||
+      lastnumber === "÷" ||
+      lastnumber === "%"
+    ) {
+      // If an operator is already present, don't append a new one
+      console.log("Operator already present, not appending.");
+      return;
+    }
     this.screen.textContent += ` ${operator} `;
+    console.log("Operator appended successfully.");
   }
 
-  compute() {}
+  compute() {
+    const expression = this.screen.textContent;
+
+    // Use the eval function to evaluate the expression
+    try {
+      // Replace 'x' with '*' and '/' with '/'
+      const sanitizedExpression = expression
+        .replace(/x/g, "*")
+        .replace(/÷/g, "/");
+
+      const result = eval(sanitizedExpression);
+      this.screen.textContent = result;
+    } catch (error) {
+      // Handle errors, e.g., if the expression is invalid
+      this.screen.textContent = "Error";
+    }
+  }
+
   updatedisplay() {}
 }
 
@@ -68,9 +105,19 @@ numberButtons.forEach((button) => {
   });
 });
 
+deleatAll.addEventListener("click", () => {
+  calculatore.clear();
+});
+deleat.addEventListener("click", () => {
+  calculatore.deleat();
+});
+
 operitoreButtons.forEach((button) => {
   button.addEventListener("click", () => {
     calculatore.choseOperetor(button.innerText);
     calculatore.updatedisplay();
   });
+});
+equalButton.addEventListener("click", () => {
+  calculatore.compute();
 });
