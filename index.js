@@ -7,6 +7,7 @@ class Calculatore {
   clear() {
     this.screen.textContent = "";
   }
+
   deleat() {
     const trimmedContent = this.screen.textContent.trim();
     const allnumbers = trimmedContent.length;
@@ -38,14 +39,30 @@ class Calculatore {
 
   compute() {
     const expression = this.screen.textContent;
-
+    let percentageMatches = [];
     // Use the eval function to evaluate the expression
     try {
       // Replace 'x' with '*' and '/' with '/'
-      const sanitizedExpression = expression
+      let sanitizedExpression = expression
         .replace(/x/g, "*")
         .replace(/÷/g, "/");
 
+      if (sanitizedExpression.includes("%")) {
+        percentageMatches = sanitizedExpression.match(/\d+\s*%\s*\d+/g);
+
+        if (percentageMatches) {
+          percentageMatches.forEach((match) => {
+            const [num, remainder] = match
+              .split(/\s*%\s*/)
+              .map((item) => parseInt(item, 10));
+            const computedValue = (num / 100) * remainder;
+            sanitizedExpression = sanitizedExpression.replace(
+              match,
+              computedValue
+            );
+          });
+        }
+      }
       const result = eval(sanitizedExpression);
       this.screen.textContent = result;
     } catch (error) {

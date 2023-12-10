@@ -113,3 +113,6 @@ body {
   word-break: break-all;
   font-size: 2rem;
 }
+.numbers-on-screen {
+  min-height: 37.6px;
+}
