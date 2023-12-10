@@ -6,6 +6,7 @@ class Calculatore {
 
   clear() {
     this.screen.textContent = "";
+    count = 0;
   }
 
   deleat() {
@@ -44,14 +45,13 @@ class Calculatore {
       return;
     }
 
-    this.screen.textContent += ` ${operator} `;
+    this.screen.textContent += operator;
     console.log("Operator appended successfully.");
   }
 
   compute() {
     const expression = this.screen.textContent;
-    let percentageMatches = [];
-    // Use the eval function to evaluate the expression
+
     try {
       // Replace 'x' with '*' and '/' with '/'
       let sanitizedExpression = expression
@@ -59,42 +59,43 @@ class Calculatore {
         .replace(/÷/g, "/");
 
       if (sanitizedExpression.includes("%")) {
-        percentageMatches = sanitizedExpression.match(/\d+\s*%\s*\d+/g);
-
-        if (percentageMatches) {
-          percentageMatches.forEach((match) => {
-            const [num, remainder] = match
-              .split(/\s*%\s*/)
-              .map((item) => parseInt(item, 10));
-            const computedValue = (num / 100) * remainder;
-            sanitizedExpression = sanitizedExpression.replace(
-              match,
-              computedValue
-            );
-          });
-        }
+        // Calculate percentages
+        sanitizedExpression = sanitizedExpression.replace(
+          /(\d+%)/g,
+          (_, match) => `(${parseFloat(match) * 0.01})*`
+        );
       }
+
       const result = eval(sanitizedExpression);
-      this.screen.textContent = result;
+
+      // Convert the result to a number before assigning it to the screen
+      this.screen.textContent = Number(result);
     } catch (error) {
       // Handle errors, e.g., if the expression is invalid
       this.screen.textContent = "Error";
     }
   }
+
   barcket() {
     if (count === 0) {
-      this.screen.textContent += " (";
+      this.screen.textContent += "(";
       count++;
     } else {
       this.screen.textContent += ") ";
       count--;
     }
   }
-  plusOrMinus() {}
+  plusOrMinus() {
+    // Retrieve the modified expression from findlastnumber
+    const modifiedExpression = findlastnumber(this.screen.textContent);
+
+    // Update the screen with the modified expression
+    this.screen.textContent = modifiedExpression;
+  }
 }
 
 // ... (rest of your code)
-
+let count = 0;
 const caculetorButtons = document.querySelectorAll(".button");
 const specialButtons = document.querySelectorAll(".special-dark");
 const numberButtons = document.querySelectorAll("[data-number]");
@@ -163,7 +164,7 @@ equalButton.addEventListener("click", () => {
   calculatore.compute();
 });
 // Your existing code...
-let count = 0;
+
 const bracketButton = document.getElementById("bracket");
 bracketButton.addEventListener("click", () => {
   calculatore.barcket();
@@ -172,4 +173,29 @@ bracketButton.addEventListener("click", () => {
 plusOrMinus.addEventListener("click", () => {
   calculatore.plusOrMinus();
 });
-// Other event listeners...
+
+function findlastnumber(expression) {
+  // Split the expression by operators
+  const tokens = expression
+    .split(/([-+*/%])/)
+    .filter((token) => token.trim() !== "");
+
+  // Find the last number
+  let lastNumber = "";
+  for (let i = tokens.length - 1; i >= 0; i--) {
+    const token = tokens[i];
+    if (token.match(/[0-9.]/)) {
+      lastNumber = token + lastNumber;
+    } else {
+      break; // Stop when an operator is encountered
+    }
+  }
+
+  // Replace the last occurrence of the last number with its negative value
+  const modifiedExpression =
+    expression.substring(0, expression.lastIndexOf(lastNumber)) +
+    "-" +
+    lastNumber;
+
+  return modifiedExpression;
+}
