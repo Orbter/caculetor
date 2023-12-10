@@ -90,6 +90,9 @@ class Calculatore {
       count--;
     }
   }
+  plusOrMinus(){
+    if()
+  }
 }
 
 // ... (rest of your code)
@@ -103,6 +106,7 @@ const deleatAll = document.querySelector("[data-deletAll]");
 const deleat = document.querySelector("[data-delet]");
 const screen = document.querySelector("[deta-screen]");
 const barcket = document.querySelector("[data-bracket]");
+const plusOrMinus = document.querySelector("[data-minusOrplus]");
 const calculatore = new Calculatore(screen);
 function buttonAnimation(button) {
   // Store the initial background color
@@ -169,4 +173,7 @@ bracketButton.addEventListener("click", () => {
   calculatore.barcket();
 });
 
+plusOrMinus.addEventListener("click", () => {
+  calculatore.plusOrMinus();
+});
 // Other event listeners...
