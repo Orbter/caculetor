@@ -28,7 +28,8 @@ class Calculatore {
       lastnumber === "x" ||
       lastnumber === "÷" ||
       lastnumber === "%"
-    ) {
+    ) {\
+      else if ()
       // If an operator is already present, don't append a new one
       console.log("Operator already present, not appending.");
       return;
@@ -88,7 +89,10 @@ const calculatore = new Calculatore(screen);
 function buttonAnimation(button) {
   // Store the initial background color
   const initialColor = button.style.backgroundColor;
-
+  const height = button.style.height; // Fix typo: heaight to height
+  const width = button.style.width;
+  button.style.width = "72px";
+  button.style.height = "72px"; // Fix typo: heaight to height
   // Check if the button is a special button based on its class
   if (button.classList.contains("special-dark")) {
     button.style.backgroundColor = "rgb(72, 219, 63)";
@@ -99,6 +103,8 @@ function buttonAnimation(button) {
   // Reset the background color to the initial color after a short delay
   setTimeout(() => {
     button.style.backgroundColor = initialColor;
+    button.style.width = width;
+    button.style.height = height;
   }, 200); // Adjust the delay as needed
 }
 
