@@ -90,9 +90,7 @@ class Calculatore {
       count--;
     }
   }
-  plusOrMinus(){
-    if()
-  }
+  plusOrMinus() {}
 }
 
 // ... (rest of your code)
@@ -146,7 +144,6 @@ caculetorButtons.forEach((button) => {
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
     calculatore.appendNumber(button.innerText);
-    calculatore.updatedisplay();
   });
 });
 
@@ -160,7 +157,6 @@ deleat.addEventListener("click", () => {
 operitoreButtons.forEach((button) => {
   button.addEventListener("click", () => {
     calculatore.choseOperetor(button.innerText);
-    calculatore.updatedisplay();
   });
 });
 equalButton.addEventListener("click", () => {
