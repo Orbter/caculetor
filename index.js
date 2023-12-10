@@ -20,20 +20,30 @@ class Calculatore {
 
   choseOperetor(operator) {
     if (this.screen.textContent === "") return;
+
     const lastnumber = this.screen.textContent.trim().slice(-1);
     console.log(`Last character: ${lastnumber}`);
+
+    // Check if the operator is a bracket
+    if (operator === "(" || operator === ")") {
+      // Handle bracket separately
+      this.screen.textContent += operator;
+      console.log("Bracket appended successfully.");
+      return;
+    }
+
     if (
       lastnumber === "+" ||
       lastnumber === "-" ||
       lastnumber === "x" ||
       lastnumber === "÷" ||
       lastnumber === "%"
-    ) {\
-      else if ()
+    ) {
       // If an operator is already present, don't append a new one
       console.log("Operator already present, not appending.");
       return;
     }
+
     this.screen.textContent += ` ${operator} `;
     console.log("Operator appended successfully.");
   }
@@ -71,8 +81,15 @@ class Calculatore {
       this.screen.textContent = "Error";
     }
   }
-
-  updatedisplay() {}
+  barcket() {
+    if (count === 0) {
+      this.screen.textContent += " (";
+      count++;
+    } else {
+      this.screen.textContent += ") ";
+      count--;
+    }
+  }
 }
 
 // ... (rest of your code)
@@ -85,6 +102,7 @@ const equalButton = document.querySelector("[data-equls]");
 const deleatAll = document.querySelector("[data-deletAll]");
 const deleat = document.querySelector("[data-delet]");
 const screen = document.querySelector("[deta-screen]");
+const barcket = document.querySelector("[data-bracket]");
 const calculatore = new Calculatore(screen);
 function buttonAnimation(button) {
   // Store the initial background color
@@ -144,3 +162,11 @@ operitoreButtons.forEach((button) => {
 equalButton.addEventListener("click", () => {
   calculatore.compute();
 });
+// Your existing code...
+let count = 0;
+const bracketButton = document.getElementById("bracket");
+bracketButton.addEventListener("click", () => {
+  calculatore.barcket();
+});
+
+// Other event listeners...
