@@ -30,7 +30,7 @@ html {
   max-height: 600px;
   min-width: 300px;
   gap: 5px;
-
+  padding-top: 5px;
   flex-grow: 1;
 }
 #caculetor-h2 {
@@ -38,38 +38,42 @@ html {
   min-width: 300px;
   gap: 5px;
   flex-grow: 1;
+  padding-top: 5px;
 }
 #caculetor-h3 {
   background-color: rgb(32, 30, 30);
   min-width: 300px;
   gap: 5px;
-
+  padding-top: 5px;
   flex-grow: 1;
 }
 #caculetor-h4 {
   background-color: rgb(32, 30, 30);
   min-width: 300px;
   gap: 5px;
-
-  flex-grow: 1;
+  padding-top: 5px;
 }
 #caculetor-h5 {
   background-color: rgb(32, 30, 30);
   min-width: 300px;
   gap: 5px;
-
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding-top: 5px;
   flex-grow: 1;
 }
 .numbers-screen {
   flex-direction: column;
   min-width: 315px;
   flex-grow: 1;
-  min-height: 100px;
+  min-height: 150 px;
   align-items: end;
   justify-content: center;
   word-wrap: break-word;
   word-break: break-all;
   font-size: 2rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 .numbers-screen-dark {
   background-color: rgb(0, 0, 0);
@@ -106,10 +110,11 @@ html {
 .All-buttons {
   padding: 5px;
   padding-top: 0;
+
   flex-direction: column;
 }
 .deleat {
-  padding-top: 15px;
+  padding-top: 65px;
   padding-bottom: 0;
   cursor: pointer;
 }
