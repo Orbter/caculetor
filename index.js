@@ -108,20 +108,31 @@ const barcket = document.querySelector("[data-bracket]");
 const plusOrMinus = document.querySelector("[data-minusOrplus]");
 const calculatore = new Calculatore(screen);
 function buttonAnimation(button) {
-  // Store the initial background color
-  const initialColor = button.style.backgroundColor;
-  const height = button.style.height; // Fix typo: heaight to height
-  const width = button.style.width;
+  // Store the initial background color and size
+  const initialColor =
+    getComputedStyle(button).getPropertyValue("background-color");
+  const width = getComputedStyle(button).getPropertyValue("width");
+  const height = getComputedStyle(button).getPropertyValue("height");
+
+  // Set the new size for animation
   button.style.width = "72px";
-  button.style.height = "72px"; // Fix typo: heaight to height
-  // Check if the button is a special button based on its class
+  button.style.height = "72px";
+
+  // Check if the body has the "dark" class
+  const isDarkMode = document.body.classList.contains("dark");
+
+  // Set the background color based on whether it's a special button and the mode
   if (button.classList.contains("special-dark")) {
-    button.style.backgroundColor = "rgb(72, 219, 63)";
+    button.style.backgroundColor = isDarkMode
+      ? "rgba(231, 106, 3, 0.2)"
+      : "rgb(72, 219, 63)";
   } else {
-    button.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+    button.style.backgroundColor = isDarkMode
+      ? "rgba(192, 188, 188, 0.5)"
+      : "rgba(255, 255, 255, 0.2)";
   }
 
-  // Reset the background color to the initial color after a short delay
+  // Reset the background color and size after a short delay
   setTimeout(() => {
     button.style.backgroundColor = initialColor;
     button.style.width = width;
