@@ -106,6 +106,7 @@ const deleat = document.querySelector("[data-delet]");
 const screen = document.querySelector("[deta-screen]");
 const barcket = document.querySelector("[data-bracket]");
 const plusOrMinus = document.querySelector("[data-minusOrplus]");
+const light = document.getElementById("light");
 const calculatore = new Calculatore(screen);
 function buttonAnimation(button) {
   // Store the initial background color and size
@@ -128,7 +129,7 @@ function buttonAnimation(button) {
       : "rgb(72, 219, 63)";
   } else {
     button.style.backgroundColor = isDarkMode
-      ? "rgba(192, 188, 188, 0.5)"
+      ? "rgb  a(192, 188, 188, 0.5)"
       : "rgba(255, 255, 255, 0.2)";
   }
 
@@ -210,3 +211,31 @@ function findlastnumber(expression) {
 
   return modifiedExpression;
 }
+light.addEventListener("click", () => {
+  const isDarkMode = document.body.classList.contains("dark");
+  if (isDarkMode) {
+    document.body.classList.remove("dark");
+    light.textContent = "light";
+  } else {
+    document.body.classList.add("dark");
+    light.textContent = "dark";
+  }
+});
+light.addEventListener("mouseover", () => {
+  let widthPercentage = parseFloat(getComputedStyle(light).width);
+  let heightPercentage = parseFloat(getComputedStyle(light).height);
+
+  widthPercentage *= 1.3;
+  heightPercentage *= 1.3;
+
+  // Set the new size with the unit "px"
+  light.style.width = widthPercentage + "px";
+  light.style.height = heightPercentage + "px";
+});
+
+const initialWidth = parseFloat(getComputedStyle(light).width);
+const initialHeight = parseFloat(getComputedStyle(light).height);
+light.addEventListener("mouseout", () => {
+  light.style.width = initialWidth + "px";
+  light.style.height = initialHeight + "px";
+});

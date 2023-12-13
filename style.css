@@ -5,7 +5,7 @@ body {
   height: 100vh;
   margin: 0;
   background-color: var(--full-backround);
-  --full-backround: white;
+  --full-backround: rgb(160, 160, 160);
   --button-color-special: rgb(17, 169, 7);
   --button-color: rgb(51, 52, 55);
   --calculator-background: rgb(32, 30, 30);
@@ -13,6 +13,10 @@ body {
   --text-color: white;
   --animation-button: rgba(255, 255, 255, 0.2);
   --animation-button-spechial: rgba(17, 169, 7, 0.2);
+  --light-dark: orangered;
+  --light-dark-text: black;
+  --deleat: rgb(17, 169, 7);
+  transition: 1s;
 }
 
 body.dark {
@@ -24,6 +28,9 @@ body.dark {
   --text-color: black;
   --animation-button: rgba(192, 188, 188, 0.5);
   --animation-button-spechial: rgba(231, 106, 3, 0.2);
+  --light-dark: rgb(17, 169, 7);
+  --light-dark-text: white;
+  --deleat: rgb(231, 106, 3);
 }
 
 .main-page {
@@ -51,6 +58,7 @@ body.dark {
   gap: 5px;
   padding-top: 5px;
   flex-grow: 1;
+  transition: 1s;
 }
 #caculetor-h2 {
   background-color: var(--calculator-background);
@@ -58,6 +66,7 @@ body.dark {
   gap: 5px;
   flex-grow: 1;
   padding-top: 5px;
+  transition: 1s;
 }
 #caculetor-h3 {
   background-color: var(--calculator-background);
@@ -65,12 +74,14 @@ body.dark {
   gap: 5px;
   padding-top: 5px;
   flex-grow: 1;
+  transition: 1s;
 }
 #caculetor-h4 {
   background-color: var(--calculator-background);
   min-width: 300px;
   gap: 5px;
   padding-top: 5px;
+  transition: 1s;
 }
 #caculetor-h5 {
   background-color: var(--calculator-background);
@@ -80,6 +91,7 @@ body.dark {
   border-bottom-right-radius: 15px;
   padding-top: 5px;
   flex-grow: 1;
+  transition: 1s;
 }
 .numbers-screen {
   flex-direction: column;
@@ -95,6 +107,7 @@ body.dark {
   border-top-right-radius: 15px;
   background-color: var(--numbers-backround);
   color: var(--text-color);
+  transition: 1s;
 }
 
 .button {
@@ -106,6 +119,7 @@ body.dark {
   justify-content: center;
   border: 1px solid black;
   cursor: pointer;
+  transition: 1s;
 }
 .special-dark {
   background-color: var(--button-color-special);
@@ -148,4 +162,24 @@ body.dark {
 }
 .numbers-on-screen {
   min-height: 37.6px;
+}
+#light {
+  background-color: var(--light-dark);
+  color: var(--light-dark-text);
+  border: 1px solid black;
+  border-radius: 25px;
+  height: 40px;
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+  transition: 1s;
+}
+.deleat-button {
+  width: 50px;
+  height: 50px;
+}
+.deleat-button path {
+  stroke: var(--deleat);
+  stroke-width: 2; /* Adjust the stroke width as needed */
+  transition: 1s;
 }
