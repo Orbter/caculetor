@@ -10,6 +10,7 @@ class Calculatore {
   }
 
   deleat() {
+    // fix the count === 0 here
     const trimmedContent = this.screen.textContent.trim();
     const allnumbers = trimmedContent.length;
     this.screen.textContent = trimmedContent.slice(0, allnumbers - 1);
@@ -133,7 +134,7 @@ function buttonAnimation(button) {
       ? "rgba(192, 188, 188, 0.5)"
       : "rgba(255, 255, 255, 0.2)";
   }
-
+  //
   // Use requestAnimationFrame for smoother animations
   const start = performance.now();
 
@@ -200,28 +201,42 @@ plusOrMinus.addEventListener("click", () => {
 function findlastnumber(expression) {
   // Split the expression by operators
   const tokens = expression
-    .split(/([-+*/%])/)
+    .split(/([+x÷%])/)
     .filter((token) => token.trim() !== "");
 
   // Find the last number
-  let lastNumber = "";
-  for (let i = tokens.length - 1; i >= 0; i--) {
-    const token = tokens[i];
-    if (token.match(/[0-9.]/)) {
-      lastNumber = token + lastNumber;
+  let newnumber;
+  let modifiednumber;
+  let lastNumber;
+  let laststring;
+  let i = tokens.length - 1;
+  const lastToken = tokens[i];
+
+  if (lastToken.match(/[0-9.]/)) {
+    const cleantoken = lastToken.replace(/[^\d.-]/g, "");
+    lastNumber = parseInt(cleantoken, 10);
+    laststring = cleantoken;
+
+    // Check if the expression contains a subtraction operator
+    const hasSubtraction = lastToken.includes("-");
+
+    // Modify the last number accordingly
+    if (hasSubtraction) {
+      newnumber = laststring.replace(/-/g, "");
+      modifiednumber = newnumber;
     } else {
-      break; // Stop when an operator is encountered
+      lastNumber *= -1;
+      modifiednumber = "(" + lastNumber + ")";
     }
   }
 
-  // Replace the last occurrence of the last number with its negative value
-  const modifiedExpression =
-    expression.substring(0, expression.lastIndexOf(lastNumber)) +
-    "-" +
-    lastNumber;
-
-  return modifiedExpression;
+  // Replace the last occurrence of the last number with its modified value
+  tokens.pop();
+  tokens.push(modifiednumber);
+  const newString = tokens.join("");
+  return newString;
 }
+
 light.addEventListener("click", () => {
   const isDarkMode = document.body.classList.contains("dark");
   if (isDarkMode) {

@@ -15,7 +15,7 @@ body {
   --animation-button-spechial: rgba(17, 169, 7, 0.2);
   --light-dark: orangered;
   --light-dark-text: black;
-  --deleat: rgb(17, 169, 7);
+  --delete: rgb(17, 169, 7);
   transition: 1s;
 }
 
@@ -30,7 +30,7 @@ body.dark {
   --animation-button-spechial: rgba(231, 106, 3, 0.2);
   --light-dark: rgb(17, 169, 7);
   --light-dark-text: white;
-  --deleat: rgb(231, 106, 3);
+  --delete: rgb(231, 106, 3);
 }
 
 .main-page {
@@ -93,22 +93,6 @@ body.dark {
   flex-grow: 1;
   transition: 1s;
 }
-.numbers-screen {
-  flex-direction: column;
-  min-width: 315px;
-  flex-grow: 1;
-  min-height: 150 px;
-  align-items: end;
-  justify-content: center;
-  word-wrap: break-word;
-  word-break: break-all;
-  font-size: 2rem;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  background-color: var(--numbers-backround);
-  color: var(--text-color);
-  transition: 1s;
-}
 
 .button {
   flex-grow: 1;
@@ -151,15 +135,22 @@ body.dark {
   cursor: pointer;
 }
 .numbers-screen {
+  text-align: right;
   flex-direction: column;
-  min-width: 315px; /* Increase this value as needed */
+  min-width: 315px;
   flex-grow: 1;
-  align-items: end;
+  align-items: flex-end; /* Updated to 'flex-end' */
   justify-content: center;
-  word-wrap: break-word;
+  word-wrap: break-word; /* Corrected property name */
   word-break: break-all;
   font-size: 2rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: var(--numbers-backround);
+  color: var(--text-color);
+  transition: 1s;
 }
+
 .numbers-on-screen {
   min-height: 37.6px;
 }
@@ -179,7 +170,7 @@ body.dark {
   height: 50px;
 }
 .deleat-button path {
-  stroke: var(--deleat);
+  stroke: var(--delete);
   stroke-width: 2; /* Adjust the stroke width as needed */
   transition: 1s;
 }
