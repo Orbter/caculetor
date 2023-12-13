@@ -108,8 +108,9 @@ const barcket = document.querySelector("[data-bracket]");
 const plusOrMinus = document.querySelector("[data-minusOrplus]");
 const light = document.getElementById("light");
 const calculatore = new Calculatore(screen);
+const initialWidth = parseFloat(getComputedStyle(light).width);
+const initialHeight = parseFloat(getComputedStyle(light).height);
 function buttonAnimation(button) {
-  // Store the initial background color and size
   const initialColor =
     getComputedStyle(button).getPropertyValue("background-color");
   const width = getComputedStyle(button).getPropertyValue("width");
@@ -129,16 +130,26 @@ function buttonAnimation(button) {
       : "rgb(72, 219, 63)";
   } else {
     button.style.backgroundColor = isDarkMode
-      ? "rgb  a(192, 188, 188, 0.5)"
+      ? "rgba(192, 188, 188, 0.5)"
       : "rgba(255, 255, 255, 0.2)";
   }
 
-  // Reset the background color and size after a short delay
-  setTimeout(() => {
-    button.style.backgroundColor = initialColor;
-    button.style.width = width;
-    button.style.height = height;
-  }, 200); // Adjust the delay as needed
+  // Use requestAnimationFrame for smoother animations
+  const start = performance.now();
+
+  function animate(time) {
+    const progress = time - start;
+    if (progress < 250) {
+      requestAnimationFrame(animate);
+    } else {
+      // Reset the background color and size after 200ms
+      button.style.backgroundColor = initialColor;
+      button.style.width = width;
+      button.style.height = height;
+    }
+  }
+
+  requestAnimationFrame(animate);
 }
 
 function resetButtonColor(button) {
@@ -221,21 +232,17 @@ light.addEventListener("click", () => {
     light.textContent = "dark";
   }
 });
-light.addEventListener("mouseover", () => {
-  let widthPercentage = parseFloat(getComputedStyle(light).width);
-  let heightPercentage = parseFloat(getComputedStyle(light).height);
 
-  widthPercentage *= 1.3;
-  heightPercentage *= 1.3;
+light.addEventListener("mouseleave", () => {
+  light.style.width = initialWidth + "px";
+  light.style.height = initialHeight + "px";
+});
+
+light.addEventListener("mouseover", () => {
+  let widthPercentage = initialWidth * 1.3;
+  let heightPercentage = initialHeight * 1.3;
 
   // Set the new size with the unit "px"
   light.style.width = widthPercentage + "px";
   light.style.height = heightPercentage + "px";
-});
-
-const initialWidth = parseFloat(getComputedStyle(light).width);
-const initialHeight = parseFloat(getComputedStyle(light).height);
-light.addEventListener("mouseout", () => {
-  light.style.width = initialWidth + "px";
-  light.style.height = initialHeight + "px";
 });
