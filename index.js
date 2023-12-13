@@ -13,6 +13,12 @@ class Calculatore {
     // fix the count === 0 here
     const trimmedContent = this.screen.textContent.trim();
     const allnumbers = trimmedContent.length;
+    const lastChar = trimmedContent.charAt(allnumbers - 1);
+    if (lastChar === ")") {
+      count = 1;
+    } else if (lastChar === "(") {
+      count = 0;
+    }
     this.screen.textContent = trimmedContent.slice(0, allnumbers - 1);
   }
 
@@ -111,61 +117,8 @@ const light = document.getElementById("light");
 const calculatore = new Calculatore(screen);
 const initialWidth = parseFloat(getComputedStyle(light).width);
 const initialHeight = parseFloat(getComputedStyle(light).height);
-function buttonAnimation(button) {
-  const initialColor =
-    getComputedStyle(button).getPropertyValue("background-color");
-  const width = getComputedStyle(button).getPropertyValue("width");
-  const height = getComputedStyle(button).getPropertyValue("height");
-
-  // Set the new size for animation
-  button.style.width = "72px";
-  button.style.height = "72px";
-
-  // Check if the body has the "dark" class
-  const isDarkMode = document.body.classList.contains("dark");
-
-  // Set the background color based on whether it's a special button and the mode
-  if (button.classList.contains("special-dark")) {
-    button.style.backgroundColor = isDarkMode
-      ? "rgba(231, 106, 3, 0.2)"
-      : "rgb(72, 219, 63)";
-  } else {
-    button.style.backgroundColor = isDarkMode
-      ? "rgba(192, 188, 188, 0.5)"
-      : "rgba(255, 255, 255, 0.2)";
-  }
-  //
-  // Use requestAnimationFrame for smoother animations
-  const start = performance.now();
-
-  function animate(time) {
-    const progress = time - start;
-    if (progress < 250) {
-      requestAnimationFrame(animate);
-    } else {
-      // Reset the background color and size after 200ms
-      button.style.backgroundColor = initialColor;
-      button.style.width = width;
-      button.style.height = height;
-    }
-  }
-
-  requestAnimationFrame(animate);
-}
-
-function resetButtonColor(button) {
-  button.style.backgroundColor = "";
-}
 
 // Attach the event listener to each button
-caculetorButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    buttonAnimation(this);
-  });
-  button.addEventListener("mouseleave", function () {
-    resetButtonColor(this);
-  });
-});
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
     calculatore.appendNumber(button.innerText);

@@ -103,7 +103,7 @@ body.dark {
   justify-content: center;
   border: 1px solid black;
   cursor: pointer;
-  transition: 1s;
+  transition: 0.3s;
 }
 .special-dark {
   background-color: var(--button-color-special);
@@ -173,4 +173,14 @@ body.dark {
   stroke: var(--delete);
   stroke-width: 2; /* Adjust the stroke width as needed */
   transition: 1s;
+}
+.button-dark:active {
+  background-color: var(--animation-button);
+  color: var(--text-color);
+  transform: scale(0.75);
+}
+.special-dark:active {
+  background-color: var(--animation-button-spechial);
+  color: var(--text-color);
+  transform: scale(0.75);
 }
