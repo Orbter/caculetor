@@ -166,38 +166,48 @@ function findlastnumber(expression) {
   let lastToken = tokens[i];
   let lastTokentwo = tokens[i - 1];
   let check = count;
+  let hasSubtraction;
+  let hasbracket;
+  let hasbracketinnum;
   if (lastToken.match(/[0-9.]/)) {
     const cleantoken = lastToken.replace(/[^\d.-]/g, "");
     lastNumber = parseInt(cleantoken, 10);
     laststring = cleantoken;
 
     // Check if the expression contains a subtraction operator
-    const hasSubtraction = lastTokentwo.includes("-");
-    const hasbracket = lastToken.includes(")");
-    const hasbracketinnum = lastToken.includes("(");
-
+    if (i !== 0) {
+      hasSubtraction = lastTokentwo.includes("-");
+      hasbracket = lastToken.includes(")");
+      hasbracketinnum = lastToken.includes("(");
+    }
     // Modify the last number accordingly
-    if (hasbracket || hasbracketinnum) {
-      if (hasSubtraction) {
-        tokens.splice(i - 1, 1);
-        modifiednumber = lastNumber + ")";
-        count = 0;
-      } else {
-        lastNumber *= -1;
-        modifiednumber = "(" + lastNumber + ")";
-      }
+    if (i === 0) {
+      lastNumber *= -1;
+      modifiednumber = "(" + lastNumber + ")";
     } else {
-      if (check === 1) {
+      if (hasbracket || hasbracketinnum) {
         if (hasSubtraction) {
           tokens.splice(i - 1, 1);
           modifiednumber = lastNumber + ")";
           count = 0;
+        } else {
+          lastNumber *= -1;
+          modifiednumber = "(" + lastNumber + ")";
         }
-      } else if (lastTokentwo === "-") {
-        modifiednumber = lastNumber;
       } else {
-        lastNumber *= -1;
-        modifiednumber = "(" + lastNumber + ")";
+        if (check === 1) {
+          if (hasSubtraction) {
+            tokens.splice(i - 1, 1);
+            modifiednumber = lastNumber + ")";
+            count = 0;
+          }
+        } else if (lastTokentwo === "-") {
+          tokens.splice(i - 1, 1);
+          modifiednumber = "+" + lastNumber;
+        } else {
+          lastNumber *= -1;
+          modifiednumber = "(" + lastNumber + ")";
+        }
       }
     }
   }
